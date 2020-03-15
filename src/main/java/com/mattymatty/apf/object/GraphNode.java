@@ -2,7 +2,7 @@ package com.mattymatty.apf.object;
 
 interface GraphNode {
 
-    GraphNode[] getHistory();
+    Position[] getHistory();
 
     double getWeight();
 

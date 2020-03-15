@@ -57,7 +57,7 @@ public class IntegerNode implements ItemReference, Position, GraphNode{
     }
 
     @Override
-    public GraphNode[] getHistory() {
+    public Position[] getHistory() {
         if(reference==null)
             throw new ReleasedObjectException("this object no longer exists");
         return reference.getHistory();
@@ -83,7 +83,7 @@ public class IntegerNode implements ItemReference, Position, GraphNode{
 
         boolean inUse = false;
 
-        GraphNode[] history = new InnerNode[0];
+        Position[] history = new Position[0];
 
         double weight = 0;
 
@@ -103,7 +103,7 @@ public class IntegerNode implements ItemReference, Position, GraphNode{
         }
 
         @Override
-        public GraphNode[] getHistory() {
+        public Position[] getHistory() {
             return history;
         }
 
@@ -195,7 +195,21 @@ public class IntegerNode implements ItemReference, Position, GraphNode{
         return pool.getNumActive();
     }
 
-    public IntegerNode(int x, int y, int z,GraphNode[] history,double weight){
+    public IntegerNode(Position pos) {
+        try {
+            reference = pool.borrowObject();
+            reference.x = (int)Math.floor(pos.getX());
+            reference.y = (int)Math.floor(pos.getY());
+            reference.z = (int)Math.floor(pos.getZ());
+            reference.history = new Position[]{pos};
+            reference.weight = 0;
+            reference.addReference(this);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public IntegerNode(int x, int y, int z, Position[] history, double weight){
         try {
             reference = pool.borrowObject();
             reference.x = x;
@@ -215,7 +229,7 @@ public class IntegerNode implements ItemReference, Position, GraphNode{
             reference.x = x;
             reference.y = y;
             reference.z = z;
-            reference.history = new GraphNode[0];
+            reference.history = new Position[0];
             reference.weight = weight;
             reference.addReference(this);
         } catch (Exception e) {
