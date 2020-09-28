@@ -7,8 +7,18 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://papermc.io/repo/repository/maven-public/'
+    }
+    maven {
+        url 'http://repo.citizensnpcs.co/'
+    }
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    //compileOnly 'com.destroystokyo.paper:paper-api:1.15.2-R0.1-SNAPSHOT'
+    //compileOnly 'net.citizensnpcs:citizensapi:2.0.27-SNAPSHOT'
+    compileOnly files('external-lib/Citizens-2.0.27-b2120-deobfuscated-remap.jar')
+    compileOnly files('external-lib/paper-deob-remap.jar')
 }

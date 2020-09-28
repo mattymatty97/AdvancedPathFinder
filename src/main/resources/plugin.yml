@@ -1,0 +1,23 @@
+name: AdvancedPathifnder
+version: 1.0-SNAPSHOT
+author: The__Matty
+main: com.mattymatty.apf.AdvancedPathfinder
+api-version: 1.15
+
+commands:
+  advancedpathfinder:
+    description: default command for testing the pathfinder
+    usage: /apf
+    aliases: [apf,path]
+    permission: apf.test
+    permission-message: You don't have <permission>
+
+permissions:
+  apf.test:
+    description: allows usage of test commands
+    default: false
+  apf.*:
+    description: allows usage of all commands
+    default: false
+    children:
+      apf.test: true
