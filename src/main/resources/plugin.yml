@@ -18,6 +18,6 @@ permissions:
     default: false
   apf.*:
     description: allows usage of all commands
-    default: false
+    default: op
     children:
       apf.test: true

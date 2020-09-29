@@ -12,7 +12,7 @@ public class AdvancedPathfinder extends JavaPlugin {
 
     public static AdvancedPathfinder instance;
 
-    public static final long maxTime = 25000;
+    public static final long maxTime = 25;
 
     private BukkitTask looper;
 
@@ -42,13 +42,13 @@ public class AdvancedPathfinder extends JavaPlugin {
     private final PriorityQueue<QueueTask> queuedTasks = new PriorityQueue<>();
 
     private void looper(){
-        long act , micro = act = System.nanoTime()/1000;
+        long act , micro = act = System.currentTimeMillis();
         do{
             QueueTask task = queuedTasks.poll();
             if (task != null){
                 task.accept(act);
             }
-            act=System.nanoTime()/1000;
+            act=System.currentTimeMillis();
         }while (act-micro < maxTime);
     }
 

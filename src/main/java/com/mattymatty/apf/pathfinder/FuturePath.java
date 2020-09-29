@@ -2,6 +2,8 @@ package com.mattymatty.apf.pathfinder;
 
 import com.mattymatty.apf.AdvancedPathfinder;
 
+import java.util.Set;
+import java.util.PriorityQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -9,11 +11,10 @@ import java.util.concurrent.TimeoutException;
 
 public class FuturePath implements Future<Path> {
 
-    Thread runningThread;
+    PriorityQueue<GraphPosition> currQueue;
+    Set<GraphPosition> visitedSet;
 
-    final Object lock = new Object();
-
-    long startMicro = -AdvancedPathfinder.maxTime;
+    long startMillis = -AdvancedPathfinder.maxTime;
 
     Path result;
 
@@ -23,7 +24,8 @@ public class FuturePath implements Future<Path> {
 
     @Override
     public boolean cancel(boolean mayInterruptIfRunning) {
-        runningThread.interrupt();
+        currQueue.clear();
+        isCancelled = true;
         return true;
     }
 

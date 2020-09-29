@@ -8,7 +8,14 @@ import java.util.*;
 public class Path {
     final List<Location> locations;
 
+    public List<Location> getLocations() {
+        return locations;
+    }
+
     Path(List<GraphPosition> path, World world) {
-        this.locations = null;
+        locations = new LinkedList<>();
+        for(GraphPosition pos : path){
+            locations.add(new Location(world,pos.getX(),pos.getY(),pos.getZ()));
+        }
     }
 }
